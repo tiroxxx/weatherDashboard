@@ -20,16 +20,18 @@
         <!-- everything in the page goes inside this row -->
         <div class="row">
             <!-- where the form with buttons goes -->
-            <div class="col-sm-4 formy">
+            <div id="form-space" class="col-sm-3">
                 <p>Seach for a City:</p>
-                <form>
-                    <input type="text" name="form-input">
-                    <input type="submit" value="submit">
+                <form id="formy">
+                    <input id="form-input" type="text" name="form-input">
+                    <input id="form-button" type="submit" value="submit">
                 </form>
+
+                <div class="btn-group-vertical"></div>
 
             </div>
             <!-- where the city info and 5-day forecast will go -->
-            <div class="col-sm-8">
+            <div class="col-sm-9">
                 <!-- city info -->
                 <div class="row">
                     <div class="col-sm-4 city-info"></div>
