@@ -18,15 +18,19 @@ formEl.submit(function (event) {
     // city name taken from user
     cityName = formInput.val();
     var newButton = $("<button>");
-    newButton.attr("data-city", cityName);
     newButton.attr("type", "button");
     newButton.text(cityName);
     newButton.addClass("btn");
     newButton.addClass("btn-light");
+    newButton.attr("value", cityName);
 
     buttonsEl.append(newButton);
 
-})
+    ajaxCall(cityName);
+
+
+
+});
 
 // my API key
 var APIKey = "fe4bb57179968f6fb5c640fef4d924e0"
@@ -37,8 +41,17 @@ var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=&lon=&exclu
 
 
 
-$(buttonsEl).on("click", function () {
-    queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+buttonsEl.on("click", function () {
+    console.log($(this));
+    console.log($(this).attr("value"));
+    // ajaxCall($(this).attr("data-city"));
+
+
+});
+
+function ajaxCall(city) {
+
+    queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
     // running AJAX call to the OpenWeaterMap API
     $.ajax({
         url: queryURL1,
@@ -60,15 +73,15 @@ $(buttonsEl).on("click", function () {
 
         });
 
-    $.ajax({
-        ulr: queryURL2,
-        method: "GET"
-    })
+    // $.ajax({
+    //     ulr: queryURL2,
+    //     method: "GET"
+    // })
 
-        .then(function (response) {
+    //     .then(function (response) {
 
-            console.log(response);
+    //         console.log(response);
 
-        })
+    //     })
 
-});
+}
