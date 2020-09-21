@@ -21,8 +21,9 @@ formEl.submit(function (event) {
     newButton.attr("type", "button");
     newButton.text(cityName);
     newButton.addClass("btn");
+    newButton.addClass("button");
     newButton.addClass("btn-light");
-    newButton.attr("value", cityName);
+    newButton.attr("data-city", cityName);
 
     buttonsEl.append(newButton);
 
@@ -34,16 +35,11 @@ formEl.submit(function (event) {
 
 // my API key
 var APIKey = "fe4bb57179968f6fb5c640fef4d924e0"
-// url to get city's coordinates
-var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=&appid=" + APIKey;
-var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=&lon=&exclude=&appid=" + APIKey;
 
-
-
-
-buttonsEl.on("click", function () {
+$(".button").on("click", function () {
     console.log($(this));
-    console.log($(this).attr("value"));
+    var dataCity = $(this).attr("data-city");
+    console.log(dataCity);
     // ajaxCall($(this).attr("data-city"));
 
 
@@ -51,7 +47,7 @@ buttonsEl.on("click", function () {
 
 function ajaxCall(city) {
 
-    queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
     // running AJAX call to the OpenWeaterMap API
     $.ajax({
         url: queryURL1,
@@ -68,20 +64,29 @@ function ajaxCall(city) {
             console.log(cityLon);
             console.log(cityLat);
 
-            queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&exclude=&appid=" + APIKey;
+            // CALL function to get forecast and pass in lat and lon
+
+            getForecast(cityLat, cityLon);
+
 
 
         });
 
-    // $.ajax({
-    //     ulr: queryURL2,
-    //     method: "GET"
-    // })
 
-    //     .then(function (response) {
 
-    //         console.log(response);
+}
 
-    //     })
+function getForecast(lat, lon) {
+    var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon +"&exclude=&appid=" + APIKey;
+    $.ajax({
+        url: queryURL2,
+        method: "GET"
+    })
+
+        .then(function (response) {
+
+            console.log(response);
+
+        })
 
 }
