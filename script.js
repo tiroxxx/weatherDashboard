@@ -17,6 +17,20 @@ $(document).ready(function () {
     // initialize page
     init();
 
+    function addButton(city) {
+        // create a button and add attributes for each city
+        var newButton = $("<button>");
+        newButton.attr("type", "button");
+        newButton.text(city);
+        newButton.addClass("btn");
+        newButton.addClass("button");
+        newButton.addClass("btn-light");
+        newButton.attr("data-city", city);
+        // append the button to the page
+        buttonsEl.append(newButton)
+
+    }
+
     function init() {
         // get the cities stored in local storage
         var temp = JSON.parse(localStorage.getItem("city-name"));
@@ -32,16 +46,7 @@ $(document).ready(function () {
         }
         // loop through the cities we got from local storage
         for (var i = 0; i < length; i++) {
-            // create a button and add attributes for each city
-            var newButton = $("<button>");
-            newButton.attr("type", "button");
-            newButton.text(cityName[i]);
-            newButton.addClass("btn");
-            newButton.addClass("button");
-            newButton.addClass("btn-light");
-            newButton.attr("data-city", cityName[i]);
-            // append the button to the page
-            buttonsEl.append(newButton)
+            addButton(cityName[i]);
         };
     }
 
@@ -53,16 +58,6 @@ $(document).ready(function () {
         // store that city in local storage
         localStorage.setItem("city-name", JSON.stringify(cityName));
 
-        // var newButton = $("<button>");
-        // newButton.attr("type", "button");
-        // newButton.text(cityName);
-        // newButton.addClass("btn");
-        // newButton.addClass("button");
-        // newButton.addClass("btn-light");
-        // newButton.attr("data-city", cityName);
-
-        // buttonsEl.append(newButton);
-
         currentWeather(cityName);
 
     });
@@ -72,7 +67,7 @@ $(document).ready(function () {
 
     function currentWeather(city) {
 
-        var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+        var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
         // running AJAX call to the OpenWeaterMap API
         $.ajax({
             url: queryURL1,
@@ -98,7 +93,7 @@ $(document).ready(function () {
     }
 
     function getForecast(lat, lon) {
-        var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=&appid=" + APIKey;
+        var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=&appid=" + APIKey + "&units=imperial";
         $.ajax({
             url: queryURL2,
             method: "GET"
