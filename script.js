@@ -153,6 +153,8 @@ $(document).ready(function () {
     }
 
     function appendWeather(city, temp, humidity, windSpeed, icon, uvNum) {
+        // erase previous text
+        $(".city-info").empty();
         // creating all the elements needed to display city weather info on the page
         var cityEL = $("<h1>");
         cityEL.text(city);
@@ -171,6 +173,8 @@ $(document).ready(function () {
     }
 
     function appendForecast(icon, temp, humidity) {
+        // erase previous text
+        $(".forecast-area").empty();
         // creating columns for each day
         var forecastDiv = $("<div>");
         forecastDiv.addClass("col-sm-2");
