@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
     // hooking up my form elements
     var formEl = $("#formy");
     var formInput = $("#form-input");
@@ -28,7 +26,7 @@ $(document).ready(function () {
         newButton.addClass("btn-light");
         newButton.attr("data-city", city);
         // append the button to the page
-        buttonsEl.append(newButton)
+        buttonsEl.prepend(newButton)
 
     }
 
@@ -59,8 +57,14 @@ $(document).ready(function () {
             alert("Cannot leave input blank");
             return;
         }
-
+        addButton(formInput.val());
         currentWeather(formInput.val());
+    });
+
+    $(document).on("click", ".button", function() {
+        var temp = $(this);
+        currentWeather(temp.text());
+
     });
 
     // my API key
@@ -125,6 +129,8 @@ $(document).ready(function () {
     }
 
     function getForecast(city) {
+        // erase previous text
+        $(".forecast-area").empty();
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
         $.ajax({
             url: queryURL,
@@ -134,7 +140,8 @@ $(document).ready(function () {
             .then(function (response) {
 
                 console.log(response);
-                // 
+                console.log(response.list.length);
+                
                 for (var i = 0; i != response.list.length; i = i + 8) {
                     // storing all info needed in an object
                     var cityInfo = {
@@ -173,8 +180,6 @@ $(document).ready(function () {
     }
 
     function appendForecast(icon, temp, humidity) {
-        // erase previous text
-        $(".forecast-area").empty();
         // creating columns for each day
         var forecastDiv = $("<div>");
         forecastDiv.addClass("col-sm-2");
