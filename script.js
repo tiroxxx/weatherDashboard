@@ -12,8 +12,11 @@ $(document).ready(function () {
     // coordinates of the city
     var cityLon;
     var cityLat;
-    // initialize page
-    init();
+
+    // if theres something on local storage, get those on the page
+    if (JSON.parse(localStorage.getItem("city-name")) !== null) {
+        init();
+    }
 
     function addButton(city) {
         // create a button and add attributes for referencing and styling
@@ -32,11 +35,9 @@ $(document).ready(function () {
     function init() {
         // clear space under the form
         buttonsEl.empty();
+        var temp = [];
         // get the cities stored in local storage
         var temp = JSON.parse(localStorage.getItem("city-name"));
-        if(temp == null) {
-            return;
-        }
         console.log(temp);
 
         var arrLength = temp.length;
@@ -46,7 +47,6 @@ $(document).ready(function () {
         }
         // loop through the cities we got from local storage
         for (var i = 0; i < arrLength; i++) {
-
             addButton(temp[i]);
         };
     }
@@ -59,9 +59,6 @@ $(document).ready(function () {
             alert("Cannot leave input blank");
             return;
         }
-
-        // store that city in local storage
-        localStorage.setItem("city-name", JSON.stringify(formInput.val()));
 
         currentWeather(formInput.val());
 
