@@ -61,7 +61,6 @@ $(document).ready(function () {
         }
 
         currentWeather(formInput.val());
-
     });
 
     // my API key
@@ -103,10 +102,10 @@ $(document).ready(function () {
                     .then(function (response) {
                         if (JSON.parse(localStorage.getItem("city-name")) == null) {
                             var cityArr = [];
-                            // add the user city input to store later
+                            // add the user city input to store
                             cityArr.push(cityInfo.name);
                             localStorage.setItem("city-name", JSON.stringify(cityArr));
-                            // place to store weather icon
+                            // place to store weather icon url
                             var weatherIcon = "https:///openweathermap.org/img/w/" + cityInfo.icon + ".png";
                             appendWeather(cityInfo.name, cityInfo.temp, cityInfo.humidity, cityInfo.windSpeed, weatherIcon, response.value);
                             init();
@@ -167,6 +166,8 @@ $(document).ready(function () {
         uvEl.text("UV Index: " + uvNum);
         var weatherIcon = $("<img>");
         weatherIcon.attr("src", icon);
+
+        $(".city-info").append(cityEL, tempEl, humidityEl, windEl, uvEl, weatherIcon);
     }
 
     function appendForecast(icon, temp, humidity) {
