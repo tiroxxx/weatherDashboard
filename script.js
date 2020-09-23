@@ -103,17 +103,24 @@ $(document).ready(function () {
                     method: "GET"
                 })
 
-                    .then(function () {
+                    .then(function (response) {
                         if (JSON.parse(localStorage.getItem("city-name")) == null) {
                             var cityArr = [];
                             // add the user city input to store later
                             cityArr.push(cityInfo.name);
                             localStorage.setItem("city-name", JSON.stringify(cityArr));
-                            
+                            // place to store weather icon
+                            var weatherIcon = "https:///openweathermap.org/img/w/" + cityInfo.icon + ".png";
+                            appendWeather(cityInfo.name, cityInfo.temp, cityInfo.humidity, cityInfo.windSpeed, weatherIcon, response.value);
+                            init();
+                        }
+                        else {
+                            var cityArr = JSON.parse(localStorage.getItem("city-name"));
+
                         }
 
 
-                        // var weatherIcon
+                      
 
 
                     })
@@ -169,6 +176,8 @@ $(document).ready(function () {
         humidityEl.text("Humidity: " + humidity);
         var windEl = $("<p>");
         windEl.text("Wind Speed: " + windSpeed + "mph");
+        var uvEl = $("<p>");
+        uvEl.text("UV Index: " + uvNum);
         var weatherIcon = $("<img>");
         weatherIcon.attr("src", icon);
     }
