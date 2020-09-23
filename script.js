@@ -79,6 +79,7 @@ $(document).ready(function () {
         })
             // once the info is retrieved from api run this
             .then(function (response) {
+                // object with all the city info needed
                 var cityInfo = {
                     name: response.name,
                     temp: response.main.temp,
@@ -86,7 +87,7 @@ $(document).ready(function () {
                     windSpeed: response.wind.speed,
                     icon: response.weather[0].icon
                 };
-                
+
                 console.log(response);
                 cityLon = response.coord.lon;
                 cityLat = response.coord.lat;
@@ -95,7 +96,7 @@ $(document).ready(function () {
                 console.log(cityLat);
 
                 // CALL function to get forecast and pass in lat and lon
-                getForecast(cityLat, cityLon);
+                getForecast(city);
                 
             });
 
@@ -103,8 +104,8 @@ $(document).ready(function () {
 
     }
 
-    function getForecast(lat, lon) {
-        var queryURL2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=&appid=" + APIKey + "&units=imperial";
+    function getForecast(city) {
+        var queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
         $.ajax({
             url: queryURL2,
             method: "GET"
@@ -113,10 +114,30 @@ $(document).ready(function () {
             .then(function (response) {
 
                 console.log(response);
+                // 
+                for (var i = 0; i != response.list.length; i = i + 8) {
+                    // storing all info needed in an object
+                    var cityInfo = {
+                        date: response.list[i].dt_txt,
+                        temp: response.list[i].main.temp,
+                        humidity: response.list[i].main.humidity,
+                        icon: response.list[i].weather[0].icon
+                    }
+
+                    var weatherIcon = "https:///openweathermap.org/img/w/" + cityInfo.icon + ".png";
+                    // put the 5 day forecast on the page
+                    appendForecast(weatherIcon, cityInfo.temp, cityInfo.humidity);
+
+                }
 
 
 
             })
+
+    }
+
+    function appendForecast(icon, temp, humidity) {
+
 
     }
 
