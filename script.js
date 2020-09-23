@@ -7,6 +7,7 @@ $(document).ready(function () {
     var formButton = $("#form-button");
     // hooking into the col where the form is
     var formColumnEl = $("#form-space");
+    var buttonsEl = $("#button-area")
 
     // coordinates of the city
     var cityLon;
@@ -15,7 +16,7 @@ $(document).ready(function () {
     init();
 
     function addButton(city) {
-        // create a button and add attributes for each city
+        // create a button and add attributes for referencing and styling
         var newButton = $("<button>");
         newButton.attr("type", "button");
         newButton.text(city);
@@ -29,6 +30,8 @@ $(document).ready(function () {
     }
 
     function init() {
+        // clear space under the form
+        buttonsEl.empty();
         // get the cities stored in local storage
         var temp = JSON.parse(localStorage.getItem("city-name"));
         // check if theres anything stored
@@ -53,12 +56,10 @@ $(document).ready(function () {
         event.preventDefault();
         // if no input is typed, alert
         if (formInput.val() === "") {
-            alert("Cannot leave it blank");
+            alert("Cannot leave input blank");
             return;
         }
 
-        // city name taken from user
-        cityName.unshift(formInput.val());
         // store that city in local storage
         localStorage.setItem("city-name", JSON.stringify(cityName));
 
@@ -129,19 +130,26 @@ $(document).ready(function () {
                     appendForecast(weatherIcon, cityInfo.temp, cityInfo.humidity);
 
                 }
-
-
-
-            })
-
+            });
     }
 
     function appendForecast(icon, temp, humidity) {
+        // creating columns for each day
+        var forecastDiv = $("<div>");
+        forecastDiv.addClass("col-sm-2");
 
+        // creating all of the elements for the forecast
+        var weatherIcon = $("<img>");
+        weatherIcon.attr("src", icon);
+        var weatherTemp = $("<p>");
+        weatherTemp.text("Temperature: " + temp + "F");
+        var weatherHum = $("<p>");
+        weatherHum.text("Humidity: " + humidity);
+
+        $(".forecast-area").append(forecastDiv);
+        forecastDiv.append(weatherIcon, weatherTemp, weatherHum);
 
     }
-
-
 });
 
 
