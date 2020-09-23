@@ -34,20 +34,20 @@ $(document).ready(function () {
         buttonsEl.empty();
         // get the cities stored in local storage
         var temp = JSON.parse(localStorage.getItem("city-name"));
-        // check if theres anything stored
-        if (temp !== null) {
-            cityName = temp;
+        if(temp == null) {
+            return;
         }
+        console.log(temp);
 
-        var length = cityName.length;
+        var arrLength = temp.length;
         // if the length of the array is bigger than 7, make it 7
-        if (length > 7) {
-            length = 7;
+        if (arrLength > 7) {
+            arrLength = 7;
         }
         // loop through the cities we got from local storage
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < arrLength; i++) {
 
-            addButton(cityName[i]);
+            addButton(temp[i]);
         };
     }
 
@@ -61,9 +61,9 @@ $(document).ready(function () {
         }
 
         // store that city in local storage
-        localStorage.setItem("city-name", JSON.stringify(cityName));
+        localStorage.setItem("city-name", JSON.stringify(formInput.val()));
 
-        currentWeather(cityName);
+        currentWeather(formInput.val());
 
     });
 
@@ -116,27 +116,17 @@ $(document).ready(function () {
                         }
                         else {
                             var cityArr = JSON.parse(localStorage.getItem("city-name"));
-
+                            cityArr.push(cityInfo.name);
+                            localStorage.setItem("city-name", JSON.stringify(cityArr));
+                            var weatherIcon = "https:///openweathermap.org/img/w/" + cityInfo.icon + ".png";
+                            appendWeather(cityInfo.name, cityInfo.temp, cityInfo.humidity, cityInfo.windSpeed, weatherIcon, response.value);
+                            init
                         }
-
-
-                      
-
-
                     })
-
-
-
                 // CALL function to get forecast
                 getForecast(city);
-
             });
-
-
-
     }
-
-
 
     function getForecast(city) {
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
