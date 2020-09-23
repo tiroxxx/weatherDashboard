@@ -46,7 +46,7 @@ $(document).ready(function () {
         }
         // loop through the cities we got from local storage
         for (var i = 0; i < length; i++) {
-            
+
             addButton(cityName[i]);
         };
     }
@@ -72,10 +72,10 @@ $(document).ready(function () {
 
     function currentWeather(city) {
 
-        var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
         // running AJAX call to the OpenWeaterMap API
         $.ajax({
-            url: queryURL1,
+            url: queryURL,
             method: "GET"
         })
             // once the info is retrieved from api run this
@@ -96,19 +96,36 @@ $(document).ready(function () {
                 console.log(cityLon);
                 console.log(cityLat);
 
-                // CALL function to get forecast and pass in lat and lon
+                var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIKey;
+
+                $.ajax({
+                    url: queryURL2,
+                    method: "GET"
+                })
+
+                    .then(function () {
+
+
+
+                    })
+
+
+
+                // CALL function to get forecast
                 getForecast(city);
-                
+
             });
 
 
 
     }
 
+
+
     function getForecast(city) {
-        var queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
         $.ajax({
-            url: queryURL2,
+            url: queryURL,
             method: "GET"
         })
 
@@ -131,6 +148,14 @@ $(document).ready(function () {
 
                 }
             });
+    }
+
+    function appendWeather(city, temp, humidity, windSpeed, icon, uvNum) {
+
+        var cityEL = $("<h1>");
+        cityEL.text(city);
+        
+
     }
 
     function appendForecast(icon, temp, humidity) {
