@@ -96,7 +96,7 @@ $(document).ready(function () {
                 console.log(cityLon);
                 console.log(cityLat);
 
-                var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIKey;
+                var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIKey + "&units=imperial";
 
                 $.ajax({
                     url: queryURL2,
@@ -104,7 +104,16 @@ $(document).ready(function () {
                 })
 
                     .then(function () {
+                        if (JSON.parse(localStorage.getItem("city-name")) == null) {
+                            var cityArr = [];
+                            // add the user city input to store later
+                            cityArr.push(cityInfo.name);
+                            localStorage.setItem("city-name", JSON.stringify(cityArr));
+                            
+                        }
 
+
+                        // var weatherIcon
 
 
                     })
@@ -123,7 +132,7 @@ $(document).ready(function () {
 
 
     function getForecast(city) {
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial";
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -151,11 +160,17 @@ $(document).ready(function () {
     }
 
     function appendWeather(city, temp, humidity, windSpeed, icon, uvNum) {
-
+        // creating all the elements needed to display city weather info on the page
         var cityEL = $("<h1>");
         cityEL.text(city);
-        
-
+        var tempEl = $("<p>");
+        tempEl.text("Temperature:" + temp + "F");
+        var humidityEl = $("<p>");
+        humidityEl.text("Humidity: " + humidity);
+        var windEl = $("<p>");
+        windEl.text("Wind Speed: " + windSpeed + "mph");
+        var weatherIcon = $("<img>");
+        weatherIcon.attr("src", icon);
     }
 
     function appendForecast(icon, temp, humidity) {
