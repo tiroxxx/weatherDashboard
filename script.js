@@ -8,9 +8,6 @@ $(document).ready(function () {
     // hooking into the col where the form is
     var formColumnEl = $("#form-space");
 
-    var buttonsEl = $("#button-area");
-    // city name taken from user
-    var cityName = [];
     // coordinates of the city
     var cityLon;
     var cityLat;
@@ -46,6 +43,7 @@ $(document).ready(function () {
         }
         // loop through the cities we got from local storage
         for (var i = 0; i < length; i++) {
+            
             addButton(cityName[i]);
         };
     }
@@ -53,6 +51,12 @@ $(document).ready(function () {
     // adding buttons with the name of the city being searched
     formEl.submit(function (event) {
         event.preventDefault();
+        // if no input is typed, alert
+        if (formInput.val() === "") {
+            alert("Cannot leave it blank");
+            return;
+        }
+
         // city name taken from user
         cityName.unshift(formInput.val());
         // store that city in local storage
@@ -75,7 +79,14 @@ $(document).ready(function () {
         })
             // once the info is retrieved from api run this
             .then(function (response) {
-
+                var cityInfo = {
+                    name: response.name,
+                    temp: response.main.temp,
+                    humidity: response.main.humidity,
+                    windSpeed: response.wind.speed,
+                    icon: response.weather[0].icon
+                };
+                
                 console.log(response);
                 cityLon = response.coord.lon;
                 cityLat = response.coord.lat;
@@ -85,7 +96,7 @@ $(document).ready(function () {
 
                 // CALL function to get forecast and pass in lat and lon
                 getForecast(cityLat, cityLon);
-
+                
             });
 
 
@@ -102,6 +113,8 @@ $(document).ready(function () {
             .then(function (response) {
 
                 console.log(response);
+
+
 
             })
 
