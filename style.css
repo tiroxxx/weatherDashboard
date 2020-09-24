@@ -12,7 +12,14 @@ header {
 }
 
 .button {
+    background-color: lightgray;
+    margin: 2px;
+    width: 200px;
+    border-radius: 10px;
+}
 
+#button-area {
+    width: 100%;
 }
 
 #first-row {
