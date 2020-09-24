@@ -96,7 +96,7 @@ $(document).ready(function () {
                 console.log(cityLon);
                 console.log(cityLat);
 
-                var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIKey + "&units=imperial";
+                var queryURL2 = "https://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIKey + "&units=imperial";
 
                 $.ajax({
                     url: queryURL2,
@@ -166,7 +166,7 @@ $(document).ready(function () {
         var cityEL = $("<h1>");
         cityEL.text(city);
         var tempEl = $("<p>");
-        tempEl.text("Temperature:" + temp + "F");
+        tempEl.text("Temperature: " + temp + "F");
         var humidityEl = $("<p>");
         humidityEl.text("Humidity: " + humidity);
         var windEl = $("<p>");
