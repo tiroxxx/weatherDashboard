@@ -18,6 +18,10 @@ header {
     border-radius: 10px;
 }
 
+.forecast-divs {
+    background-color: lightskyblue;
+}
+
 #button-area {
     width: 100%;
 }

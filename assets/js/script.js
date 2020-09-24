@@ -176,13 +176,14 @@ $(document).ready(function () {
         var weatherIcon = $("<img>");
         weatherIcon.attr("src", icon);
 
-        $(".city-info").append(cityEL, tempEl, humidityEl, windEl, uvEl, weatherIcon);
+        $(".city-info").append(cityEL, weatherIcon, tempEl, humidityEl, windEl, uvEl);
     }
 
     function appendForecast(icon, temp, humidity) {
         // creating columns for each day
         var forecastDiv = $("<div>");
         forecastDiv.addClass("col-sm-2");
+        forecastDiv.addClass("forecast-divs");
 
         // creating all of the elements for the forecast
         var weatherIcon = $("<img>");
