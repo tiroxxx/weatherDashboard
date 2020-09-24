@@ -182,14 +182,14 @@ $(document).ready(function () {
     function appendForecast(icon, temp, humidity) {
         // creating columns for each day
         var forecastDiv = $("<div>");
-        forecastDiv.addClass("col-sm-2");
+        forecastDiv.addClass("col-md-2");
         forecastDiv.addClass("forecast-divs");
 
         // creating all of the elements for the forecast
         var weatherIcon = $("<img>");
         weatherIcon.attr("src", icon);
         var weatherTemp = $("<p>");
-        weatherTemp.text("Temperature: " + temp + "F");
+        weatherTemp.text("Temp: " + temp + "F");
         var weatherHum = $("<p>");
         weatherHum.text("Humidity: " + humidity);
 
