@@ -2,19 +2,33 @@
     box-sizing: border-box;
 }
 
-#form-button {
-    width: 100px;
-    border: none;
-    background-color: lightskyblue;
-    border-radius: 5px;
-    color: white;
-}
-
 header {
     height: 100px;
     width: 100%;
     background-color: lightskyblue;
     font-size: 40px;
+    color: white;
+    margin: 0;
+}
+
+.button {
+
+}
+
+#first-row {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#form-space {
+    background-color: whitesmoke;
+}
+
+#form-button {
+    width: 100px;
+    border: none;
+    background-color: lightskyblue;
+    border-radius: 5px;
     color: white;
 }
 
