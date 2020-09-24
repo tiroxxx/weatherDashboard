@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+#form-button {
+    width: 100px;
+    border: none;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    color: white;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    background-color: lightskyblue;
+    font-size: 40px;
+    color: white;
+}
+
+#header {
+    padding: 10px;
+}
